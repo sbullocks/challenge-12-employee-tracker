@@ -20,6 +20,12 @@ const db = mysql.createConnection(
     inquirer
       .prompt([
         {
+          type: "number",
+          message:
+            'Which department does the role belong to? Select # for department: "1" Engineering, "2" Finance, "3" Legal, "4" Sales, "5" Service',
+          name: "department_id",
+        },
+        {
           type: "input",
           message: "What is the name of the role?",
           name: "title",
@@ -29,14 +35,10 @@ const db = mysql.createConnection(
           message: "What is the salary of the role?",
           name: "salary",
         },
-        {
-          type: "input",
-          message:
-            'Which department does the role belong to? Select # for department: "1" Engineering, "2" Finance, "3" Legal, "4" Sales, "5" Service',
-          name: "department_id",
-        },
       ])
       .then((answers) => {
+        // console.log(typeof answers.department_id);
+        console.log(answers);
         db.query("INSERT INTO roles SET ?", answers, function (err, results) {
           if (err) {
             console.log(err);
@@ -87,6 +89,61 @@ const db = mysql.createConnection(
         );
       });
   } 
+
+  function menu() {
+    inquirer.prompt ([
+        {
+            type: 'list',
+            message: 'What would you like to do?',
+            choices: [
+                'View All Employees',
+                'Add Employee',
+                'Update Employee Role',
+                'View All Roles',
+                'Add Role',
+                'View All Departments',
+                'Add Department',
+            ],
+            name: 'selection',
+        }
+    ]).then(answers => {
+        console.log(answers);
+
+        if(answers.selection === 'View All Employees') {
+            db.query('Select * FROM employee', function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.table(results);
+                    menu();
+                }
+            });
+        } else if (answers.selection === 'View All Departments') {
+            db.query('Select name FROM department', function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.table(results);
+                    menu();
+                }
+            });
+        } else if (answers.selection === 'View All Roles') {
+            db.query('Select title FROM roles', function (err, results) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.table(results);
+                    menu();
+                }
+            });    
+        } else if (answers.selection === 'Add Employee') {
+            employee();
+        } else if (answers.selection === 'Add Role') {
+            roles();
+        }
+        
+    });
+}
      
 
   // Function calls to initialize app and menu prompt
