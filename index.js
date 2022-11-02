@@ -19,55 +19,55 @@ const db = mysql.createConnection(
 const questions = [
   {
       type: 'input',
-      message: 'What is your project title?',
-      name: 'title',
+      message: 'View All Departments',
+      name: 'viewAll',
   },
   {
       type: 'input',
-      message: 'What is the repository name of your project?',
-      name: 'repo',
+      message: 'View All Roles',
+      name: 'allRoles',
   },
   { 
       type: 'input',
-      message: 'What is the description of your project?',
-      name: 'description',
+      message: 'View All Employees',
+      name: 'allEmployees',
   },
   { 
       type: 'input',
-      message: 'Enter instructions for installation',
-      name: 'installation',
+      message: 'Add A Department',
+      name: 'addDepartment',
   },
   { 
       type: 'input',
-      message: 'What is the usage information?',
-      name: 'usage',
+      message: 'Add A Role',
+      name: 'addRole',
   },
   { 
       type: 'input',
-      message: 'What are the contribution guidelines?',
-      name: 'contribution',
+      message: 'Add An Employee',
+      name: 'addEmployee',
   },
   { 
       type: 'input',
-      message: 'What are the test instructions?',
-      name: 'test',
+      message: 'Update An Employee Role',
+      name: 'updateEmployeeRole',
   },
-  { 
-      type: 'list',
-      message: 'Choose a license for your project?',
-      choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-      name: 'license',
-  },
-  {
-      type: 'input',
-      message: 'What is your GitHub username?',
-      name: 'username',
-  },
-  { 
-      type: 'input',
-      message: 'What is your email address?',
-      name: 'email',
-  },
+  // { 
+  //     type: 'list',
+  //     message: 'Choose a license for your project?',
+  //     choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
+  //     name: 'license',
+  // },
+  // {
+  //     type: 'input',
+  //     message: 'What is your GitHub username?',
+  //     name: 'username',
+  // },
+  // { 
+  //     type: 'input',
+  //     message: 'What is your email address?',
+  //     name: 'email',
+  // },
 ];
 
 // Created a function to write README file
