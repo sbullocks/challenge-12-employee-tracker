@@ -15,51 +15,76 @@ const db = mysql.createConnection(
     console.log(`Connected to the employer_db database.`)
   );
 
-// Created an array of questions for user input
-const questions = [
-  {
-      type: 'list',
-      message: 'View All Departments',
-      choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-      name: 'viewAll',
-  },
-  {
-      type: 'list',
-      message: 'View All Roles',
-      choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-      name: 'allRoles',
-  },
-  { 
-      type: 'list',
-      message: 'View All Employees',
-      choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-      name: 'allEmployees',
-  },
-  { 
-      type: 'list',
-      message: 'Add A Department',
-      choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-      name: 'addDepartment',
-  },
-  { 
-      type: 'list',
-      message: 'Add A Role',
-      choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-      name: 'addRole',
-  },
-  { 
-      type: 'list',
-      message: 'Add An Employee',
-      choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-      name: 'addEmployee',
-  },
-  { 
-      type: 'list',
-      message: 'Update An Employee Role',
-      choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-      name: 'updateEmployeeRole',
-  },
-];
+  function roles() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "What is the name of the role?",
+          name: "position",
+        },
+        {
+          type: "input",
+          message: "What is the salary of the role?",
+          name: "earnings",
+        },
+        {
+          type: "list",
+          message: "Which department does the role belong to?",
+          choices: ["Engineering", "Finance", "Legal", "Sales", "Service"],
+          name: "sector",
+        },
+      ])
+     
+  
+  // Function call to initialize app
+  init();
+  
+  // Created an array of questions for user input
+// const questions = [
+//   {
+//       type: 'list',
+//       message: 'View All Departments',
+//       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
+//       name: 'viewAll',
+//   },
+//   {
+//       type: 'list',
+//       message: 'View All Roles',
+//       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
+//       name: 'allRoles',
+//   },
+//   { 
+//       type: 'list',
+//       message: 'View All Employees',
+//       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
+//       name: 'allEmployees',
+//   },
+//   { 
+//       type: 'list',
+//       message: 'Add A Department',
+//       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
+//       name: 'addDepartment',
+//   },
+//   { 
+//       type: 'list',
+//       message: 'Add A Role',
+//       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
+//       name: 'addRole',
+//   },
+//   { 
+//       type: 'list',
+//       message: 'Add An Employee',
+//       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
+//       name: 'addEmployee',
+//   },
+//   { 
+//       type: 'list',
+//       message: 'Update An Employee Role',
+//       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
+//       name: 'updateEmployeeRole',
+//   },
+// ];
 
 // Created a function to write README file... not creating any files.
 // function writeToFile(fileName, data) {
@@ -78,10 +103,4 @@ const questions = [
 //     writeToFile("README.md", generateMarkdown(data));
 //   });
 //   };
-
-  
-  // Function call to initialize app
-  init();
-  
-  
   
