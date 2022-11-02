@@ -88,3 +88,14 @@ function writeToFile(fileName, data) {
   })
 };
 
+// Created a function to initialize app
+function init() {
+  inquirer.prompt(questions).then(function (data) {
+    writeToFile("README.md", generateMarkdown(data));
+  });
+  };
+  
+  
+  
+  
+  
