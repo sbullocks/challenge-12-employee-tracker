@@ -59,22 +59,6 @@ const questions = [
       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
       name: 'updateEmployeeRole',
   },
-  // { 
-  //     type: 'list',
-  //     message: 'Choose a license for your project?',
-  //     choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-  //     name: 'license',
-  // },
-  // {
-  //     type: 'input',
-  //     message: 'What is your GitHub username?',
-  //     name: 'username',
-  // },
-  // { 
-  //     type: 'input',
-  //     message: 'What is your email address?',
-  //     name: 'email',
-  // },
 ];
 
 // Created a function to write README file... not creating any files.
