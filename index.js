@@ -21,18 +21,17 @@ const db = mysql.createConnection(
         {
           type: "input",
           message: "What is the name of the role?",
-          name: "position",
+          name: "title",
         },
         {
           type: "input",
           message: "What is the salary of the role?",
-          name: "earnings",
+          name: "salary",
         },
         {
-          type: "list",
-          message: "Which department does the role belong to?",
-          choices: ["Engineering", "Finance", "Legal", "Sales", "Service"],
-          name: "sector",
+          type: "input",
+          message: "Which department does the role belong to? Select # for department. 1. Engineering, 2. Finance, 3. Legal, 4. Sales, 5. Service",
+          name: "department_id",
         },
       ])
       .then((answers) => {
@@ -41,7 +40,7 @@ const db = mysql.createConnection(
             console.log(err);
           } else {
             console.log(
-              `Position: ${answers.position}, Earnings: ${answers.earnings}, Sector: ${answers.sector}`
+              `Title: ${answers.title}, Salary: ${answers.salary}, Department_id: ${answers.department_id}`
             );
             menu();
           }
@@ -51,8 +50,9 @@ const db = mysql.createConnection(
      
 
   // Function calls to initialize app and menu prompt
-  menu();
-  init();
+//   menu();
+roles();
+//   init();
   
   // Created an array of questions for user input
 // const questions = [
