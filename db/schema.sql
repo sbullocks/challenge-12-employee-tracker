@@ -1,1 +1,1 @@
-
+DROP DATABASE IF EXISTS employer_db;
