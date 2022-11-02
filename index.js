@@ -35,9 +35,23 @@ const db = mysql.createConnection(
           name: "sector",
         },
       ])
+      .then((answers) => {
+        db.query("INSERT INTO roles SET ?", answers, function (err, results) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(
+              `Position: ${answers.position}, Earnings: ${answers.earnings}, Sector: ${answers.sector}`
+            );
+            menu();
+          }
+        });
+      });
+  }
      
-  
-  // Function call to initialize app
+
+  // Function calls to initialize app and menu prompt
+  menu();
   init();
   
   // Created an array of questions for user input
