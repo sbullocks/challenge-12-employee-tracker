@@ -15,6 +15,7 @@ const db = mysql.createConnection(
     console.log(`Connected to the employer_db database.`)
   );
 
+// Created function for Roles.
   function roles() {
     inquirer
       .prompt([
@@ -30,7 +31,8 @@ const db = mysql.createConnection(
         },
         {
           type: "input",
-          message: "Which department does the role belong to? Select # for department. 1. Engineering, 2. Finance, 3. Legal, 4. Sales, 5. Service",
+          message:
+            'Which department does the role belong to? Select # for department: "1" Engineering, "2" Finance, "3" Legal, "4" Sales, "5" Service',
           name: "department_id",
         },
       ])
@@ -40,18 +42,56 @@ const db = mysql.createConnection(
             console.log(err);
           } else {
             console.log(
-              `Title: ${answers.title}, Salary: ${answers.salary}, Department_id: ${answers.department_id}`
+              `Title: ${answers.title}, Salary: ${answers.salary}, Department: ${answers.department_id}`
             );
             menu();
           }
         });
       });
   }
+// Created function for Employee. 
+  function employee() {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "What is the employee`s first name?",
+          name: "first_name",
+        },
+        {
+          type: "input",
+          message: "What is the employee`s last name?",
+          name: "last_name",
+        },
+        {
+          type: "input",
+          message:
+            'What is the employee`s role Select # for role: "1" Sales Lead, "2" Salesperson, "3" Lead Engineer, "4" Software Engineer, "5" Account Manager, "6" Accountant, "7" Legal Team Lead, "8" Lawler',
+          name: "role_id",
+        },
+      ])
+      .then((answers) => {
+        db.query(
+          "INSERT INTO employee SET ?",
+          answers,
+          function (err, results) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(
+                `First Name: ${answers.first_name}, Last Name: ${answers.last_name}, Role ID: ${answers.role_id}`
+              );
+              menu();
+            }
+          }
+        );
+      });
+  } 
      
 
   // Function calls to initialize app and menu prompt
 //   menu();
-roles();
+     roles();
 //   init();
   
   // Created an array of questions for user input
