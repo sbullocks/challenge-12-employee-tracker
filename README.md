@@ -20,14 +20,14 @@
   Challenge 12 Employee Tracker
 
   ## Demo
-  [Click Here to View Walk-Through Video](https://drive.google.com/file/d/1a6HU8PZ4kwK3IfJ3oF5biByk-SWcL6p6/view)
+  [Click Here to View Walk-Through Video](https://drive.google.com/file/d/1KKAwT1ptOdlvBSt4SplfjlQg2Dr2J5Fo/view)
 
   ## Installation
   N/A
 
   ## Usage
   N/A
-  ![screenshot lf localhost page with notes saved.](./public/assets/images/Screenshot%202022-10-31%20200931.png)
+  ![screenshot of terminal with question prompt and errors.](./assets/images/Screenshot%202022-11-03%20182144.png)
 
   ## Contribution
   N/A

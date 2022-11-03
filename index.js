@@ -143,9 +143,9 @@ function dropdown() {
 }
 
 // Function calls to initialize app and dropdown prompt
-  // dropdown();
+  dropdown();
   roles();
-  // init();
+  init();
 
 // Created an array of questions for user input
 // const questions = [
