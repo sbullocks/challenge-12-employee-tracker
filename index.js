@@ -1,199 +1,195 @@
-const inquirer = require('inquirer');
+const inquirer = require("inquirer");
 // Import and require mysql2
-const mysql = require('mysql2');
+const mysql = require("mysql2");
 // Import and rquire asciiart-logo
-const logo = require('asciiart-logo');
+const logo = require("asciiart-logo");
 
 // Connect to database
 const db = mysql.createConnection(
-    {
-      host: 'localhost',
-      user: 'root',
-      password: 'Devon10422401%',
-      database: 'employer_db'
-    },
-    console.log(`Connected to the employer_db database.`)
-  );
+  {
+    host: "localhost",
+    user: "root",
+    password: "Devon10422401%",
+    database: "employer_db",
+  },
+  console.log(`Connected to the employer_db database.`)
+);
 
 // Created function for Roles.
-  function roles() {
-    inquirer
-      .prompt([
-        {
-          type: "number",
-          message:
-            'Which department does the role belong to? Select # for department: "1" Engineering, "2" Finance, "3" Legal, "4" Sales, "5" Service',
-          name: "department_id",
-        },
-        {
-          type: "input",
-          message: "What is the name of the role?",
-          name: "title",
-        },
-        {
-          type: "input",
-          message: "What is the salary of the role?",
-          name: "salary",
-        },
-      ])
-      .then((answers) => {
-        // console.log(typeof answers.department_id);
-        console.log(answers);
-        db.query("INSERT INTO roles SET ?", answers, function (err, results) {
+function roles() {
+  inquirer
+    .prompt([
+      {
+        type: "number",
+        message:
+          "Which department does the role belong to? Select # for department: '1' Engineering, '2' Finance, '3' Legal, '4' Sales, '5' Service",
+        name: "department_id",
+      },
+      {
+        type: "input",
+        message: "What is the name of the role?",
+        name: "title",
+      },
+      {
+        type: "input",
+        message: "What is the salary of the role?",
+        name: "salary",
+      },
+    ])
+    .then((answers) => {
+      // console.log(typeof answers.department_id);
+      console.log(answers);
+      db.query("INSERT INTO roles SET ?", answers, function (err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(
+            `Title: ${answers.title}, Salary: ${answers.salary}, Department: ${answers.department_id}`
+          );
+          dropdown();
+        }
+      });
+    });
+}
+// Created function for Employee.
+function employee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the employee`s first name?",
+        name: "first_name",
+      },
+      {
+        type: "input",
+        message: "What is the employee`s last name?",
+        name: "last_name",
+      },
+      {
+        type: "input",
+        message:
+          "What is the employee`s role Select # for role: '1' Sales Lead, '2' Salesperson, '3' Lead Engineer, '4' Software Engineer, '5' Account Manager, '6' Accountant, '7' Legal Team Lead, '8' Lawler",
+        name: "role_id",
+      },
+    ])
+    .then((answers) => {
+      db.query("INSERT INTO employee SET ?", answers, function (err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(
+            `First Name: ${answers.first_name}, Last Name: ${answers.last_name}, Role ID: ${answers.role_id}`
+          );
+          dropdown();
+        }
+      });
+    });
+}
+
+function dropdown() {
+  inquirer
+    .prompt([
+      {
+        type: "list",
+        message: "What would you like to do?",
+        choices: [
+          "View All Employees",
+          "Add Employee",
+          "Update Employee Role",
+          "View All Roles",
+          "Add Role",
+          "View All Departments",
+          "Add Department",
+        ],
+        name: "choice",
+      },
+    ])
+    .then((answers) => {
+      console.log(answers);
+
+      if (answers.choice === "View All Employees") {
+        db.query("Select * FROM employee", function (err, results) {
           if (err) {
             console.log(err);
           } else {
-            console.log(
-              `Title: ${answers.title}, Salary: ${answers.salary}, Department: ${answers.department_id}`
-            );
-            menu();
+            console.table(results);
+            dropdown();
           }
         });
-      });
-  }
-// Created function for Employee. 
-  function employee() {
-    inquirer
-      .prompt([
-        {
-          type: "input",
-          message: "What is the employee`s first name?",
-          name: "first_name",
-        },
-        {
-          type: "input",
-          message: "What is the employee`s last name?",
-          name: "last_name",
-        },
-        {
-          type: "input",
-          message:
-            'What is the employee`s role Select # for role: "1" Sales Lead, "2" Salesperson, "3" Lead Engineer, "4" Software Engineer, "5" Account Manager, "6" Accountant, "7" Legal Team Lead, "8" Lawler',
-          name: "role_id",
-        },
-      ])
-      .then((answers) => {
-        db.query(
-          "INSERT INTO employee SET ?",
-          answers,
-          function (err, results) {
-            if (err) {
-              console.log(err);
-            } else {
-              console.log(
-                `First Name: ${answers.first_name}, Last Name: ${answers.last_name}, Role ID: ${answers.role_id}`
-              );
-              menu();
-            }
+      } else if (answers.choice === "View All Departments") {
+        db.query("Select name FROM department", function (err, results) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.table(results);
+            dropdown();
           }
-        );
-      });
-  } 
-
-  function menu() {
-    inquirer.prompt ([
-        {
-            type: 'list',
-            message: 'What would you like to do?',
-            choices: [
-                'View All Employees',
-                'Add Employee',
-                'Update Employee Role',
-                'View All Roles',
-                'Add Role',
-                'View All Departments',
-                'Add Department',
-            ],
-            name: 'selection',
-        }
-    ]).then(answers => {
-        console.log(answers);
-
-        if(answers.selection === 'View All Employees') {
-            db.query('Select * FROM employee', function (err, results) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.table(results);
-                    menu();
-                }
-            });
-        } else if (answers.selection === 'View All Departments') {
-            db.query('Select name FROM department', function (err, results) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.table(results);
-                    menu();
-                }
-            });
-        } else if (answers.selection === 'View All Roles') {
-            db.query('Select title FROM roles', function (err, results) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.table(results);
-                    menu();
-                }
-            });    
-        } else if (answers.selection === 'Add Employee') {
-            employee();
-        } else if (answers.selection === 'Add Role') {
-            roles();
-        }
-        
+        });
+      } else if (answers.choice === "View All Roles") {
+        db.query("Select title FROM roles", function (err, results) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.table(results);
+            dropdown();
+          }
+        });
+      } else if (answers.choice === "Add Employee") {
+        employee();
+      } else if (answers.choice === "Add Role") {
+        roles();
+      }
     });
 }
-     
 
-  // Function calls to initialize app and menu prompt
-//   menu();
-     roles();
+// Function calls to initialize app and dropdown prompt
+//   dropdown();
+roles();
 //   init();
-  
-  // Created an array of questions for user input
+
+// Created an array of questions for user input
 // const questions = [
 //   {
-//       type: 'list',
-//       message: 'View All Departments',
+//       type: "list",
+//       message: "View All Departments",
 //       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-//       name: 'viewAll',
+//       name: "viewAll",
 //   },
 //   {
-//       type: 'list',
-//       message: 'View All Roles',
+//       type: "list",
+//       message: "View All Roles",
 //       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-//       name: 'allRoles',
+//       name: "allRoles",
 //   },
-//   { 
-//       type: 'list',
-//       message: 'View All Employees',
+//   {
+//       type: "list",
+//       message: "View All Employees",
 //       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-//       name: 'allEmployees',
+//       name: "allEmployees",
 //   },
-//   { 
-//       type: 'list',
-//       message: 'Add A Department',
+//   {
+//       type: "list",
+//       message: "Add A Department",
 //       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-//       name: 'addDepartment',
+//       name: "addDepartment",
 //   },
-//   { 
-//       type: 'list',
-//       message: 'Add A Role',
+//   {
+//       type: "list",
+//       message: "Add A Role",
 //       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-//       name: 'addRole',
+//       name: "addRole",
 //   },
-//   { 
-//       type: 'list',
-//       message: 'Add An Employee',
+//   {
+//       type: "list",
+//       message: "Add An Employee",
 //       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-//       name: 'addEmployee',
+//       name: "addEmployee",
 //   },
-//   { 
-//       type: 'list',
-//       message: 'Update An Employee Role',
+//   {
+//       type: "list",
+//       message: "Update An Employee Role",
 //       choices: ["ISC", "MIT", "Mozilla Public License 2.0"],
-//       name: 'updateEmployeeRole',
+//       name: "updateEmployeeRole",
 //   },
 // ];
 
@@ -203,7 +199,7 @@ const db = mysql.createConnection(
 //       if (err) {
 //           console.log(err);
 //       } else {
-//           console.log('README file successfully created!');
+//           console.log("README file successfully created!");
 //       }
 //   })
 // };
@@ -214,4 +210,3 @@ const db = mysql.createConnection(
 //     writeToFile("README.md", generateMarkdown(data));
 //   });
 //   };
-  
