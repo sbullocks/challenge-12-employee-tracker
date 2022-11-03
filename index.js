@@ -20,7 +20,7 @@ function roles() {
   inquirer
     .prompt([
       {
-        type: "number",
+        type: "input",
         message:
           "Which department does the role belong to? Select # for department: '1' Engineering, '2' Finance, '3' Legal, '4' Sales, '5' Service",
         name: "department_id",
@@ -143,9 +143,9 @@ function dropdown() {
 }
 
 // Function calls to initialize app and dropdown prompt
-//   dropdown();
-roles();
-//   init();
+  // dropdown();
+  roles();
+  // init();
 
 // Created an array of questions for user input
 // const questions = [
